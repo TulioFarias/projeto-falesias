@@ -13,7 +13,6 @@ const Geolocation = () => {
   useEffect(() => {
     if (!mapInstance) return;
 
-   
     const iconFeature = new Feature({
       geometry: new Point(fromLonLat([0, 0])), // Posição inicial arbitrária
       name: 'User Location'
@@ -38,30 +37,33 @@ const Geolocation = () => {
 
     mapInstance.addLayer(vectorLayer);
 
-    // Obter localização do usuário em tempo real
-    if ('geolocation' in navigator) {
-      navigator.geolocation.watchPosition(
-        (position) => {
-          const coords = [position.coords.longitude, position.coords.latitude];
-          const newCoords = fromLonLat(coords);
-          console.log(newCoords)
-        //   iconFeature.getGeometry().setCoordinates(newCoords);
-
-         
-          mapInstance.getView().setCenter(newCoords);
-        },
-        (error) => {
-          console.error('Erro ao obter localização:', error);
-        },
-        {
-          enableHighAccuracy: true,
-          maximumAge: 0,
-          timeout: 60000
+    const requestLocationPermission = async () => {
+      try {
+        const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+        if (permissionStatus.state === 'granted' || permissionStatus.state === 'prompt') {
+          navigator.geolocation.watchPosition(
+            (position) => {
+              const coords = [position.coords.longitude, position.coords.latitude];
+              const newCoords = fromLonLat(coords);
+              console.log(newCoords)
+              mapInstance.getView().setCenter(newCoords);
+            },
+            (error) => {
+              console.error('Erro ao obter localização:', error);
+            },
+            {
+              enableHighAccuracy: true,
+              maximumAge: 0,
+              timeout: 60000
+            }
+          );
         }
-      );
-    } else {
-      console.error('Geolocation não é suportado por este navegador.');
-    }
+      } catch (error) {
+        console.error('Erro ao solicitar permissão de localização:', error);
+      }
+    };
+
+    requestLocationPermission();
   }, [mapInstance]);
 
   return null;
