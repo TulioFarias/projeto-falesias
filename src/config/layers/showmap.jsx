@@ -24,5 +24,5 @@ const mapInstance = new Map({
   controls: []
 });
 
-export {mapInstance}
+export {mapInstance , zoom , center}
 

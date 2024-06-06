@@ -1,4 +1,4 @@
-import { mapInstance } from "./showmap"
+import { mapInstance } from "../../config/layers/showmap"
 import { Tooltip } from '@mui/material'
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';

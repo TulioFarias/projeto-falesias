@@ -11,7 +11,6 @@ function ShowMap() {
   const [showMap, setShowMap] = useState(null)
   const mapTargetElement = useRef(null)
 
-  console.log(showMap, 'ta cheganod aqui')
 
 
   const initializeMap = () => {
@@ -21,15 +20,7 @@ function ShowMap() {
       const Scale = new ScaleLine()
       mapInstance.addControl(Scale)
 
-      // const mousePositionControl = new MousePosition({
-      //   coordinateFormat: createStringXY(4),
-      //   projection: 'EPSG:4326',
-      //   className: 'custom-mouse-position',
-      //   target: document.getElementById('mouse-position'),
-      //   undefinedHTML: '&nbsp;'
-      // })
-      // mapInstance.addControl(mousePositionControl)
-
+  
       setShowMap(mapInstance)
     }
   }
