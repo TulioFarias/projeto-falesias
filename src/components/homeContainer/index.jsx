@@ -3,15 +3,13 @@ import ScaleLine from 'ol/control/ScaleLine.js'
 import { createStringXY } from 'ol/coordinate'
 import React, { useEffect, useRef, useState } from 'react'
 import {mapInstance} from '../../config/layers/showmap'
-
+import Geolocation from './geolocationUser'
 import '../../sass/containerMap/map.scss'
 
 
 function ShowMap() {
   const [showMap, setShowMap] = useState(null)
   const mapTargetElement = useRef(null)
-
-
 
   const initializeMap = () => {
     if (mapInstance && mapTargetElement.current) {
@@ -20,14 +18,22 @@ function ShowMap() {
       const Scale = new ScaleLine()
       mapInstance.addControl(Scale)
 
-  
       setShowMap(mapInstance)
     }
   }
 
   useEffect(() => {
-    initializeMap()
-  }, [])
+    initializeMap();
+
+    const handleMapRender = async () => {
+      if (showMap) {
+        
+        Geolocation();
+      }
+    };
+
+    handleMapRender();
+  }, []);
 
   return (
     <div>
