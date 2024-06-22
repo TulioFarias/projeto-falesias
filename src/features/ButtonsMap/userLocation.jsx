@@ -9,18 +9,17 @@ import React from 'react'
 import { mapInstance } from '../../config/layers/showmap'
 import { vector } from '../../config/layers/vector'
 
+
 function FindUser() {
   const buscarLocalizacao = async () => {
     try {
       if (navigator.geolocation) {
+        
         await navigator.geolocation.getCurrentPosition(position => {
           const { latitude, longitude } = position.coords
 
-          const markerLayer = new VectorLayer({
-            source: vector.getSource()
-          })
-
           const coords = [longitude, latitude]
+          console.log(coords)
           const point = new Point(coords)
           const pointFeature = new Feature(point)
           const vectorStyle = [
@@ -40,7 +39,7 @@ function FindUser() {
               image: new CircleStyle({
                 radius: 70,
                 fill: new Fill({
-                  color: 'rgba(255,255,255,0.4)'
+                  color: 'rgba(255, 255, 255, 0.205)'
                 }),
                 stroke: new Stroke({
                   color: 'rgba(169,0,201,1)',
@@ -50,12 +49,21 @@ function FindUser() {
             })
           ]
 
-          vector.setStyle(vectorStyle)
-          markerLayer.getSource().clear()
-          markerLayer.getSource().addFeature(pointFeature)
 
+          const markerLayer = new VectorLayer({
+            source: vector.getSource(),
+            style: vectorStyle,
+            zIndex: 10
+          })
+
+         
+          vector.getSource().clear()
+          vector.getSource().addFeature(pointFeature)
+
+          mapInstance.addLayer(markerLayer)
           mapInstance.getView().setCenter(coords)
           mapInstance.getView().setZoom(20)
+
         })
       } else {
         alert('Ocorreu um erro')

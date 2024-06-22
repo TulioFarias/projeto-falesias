@@ -16,6 +16,8 @@ function ResetZoom() {
     mapInstance.getView().setCenter(center)
   }
 
+
+
   return (
     <>
       <Tooltip
