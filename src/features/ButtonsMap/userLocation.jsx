@@ -3,11 +3,12 @@ import { Tooltip } from '@mui/material'
 import Feature from 'ol/Feature'
 import Point from 'ol/geom/Point'
 import { Vector as VectorLayer } from 'ol/layer'
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
+import { Circle as CircleStyle, Fill, Stroke, Style, Icon } from 'ol/style'
 import React from 'react'
 
 import { mapInstance } from '../../config/layers/showmap'
 import { vector } from '../../config/layers/vector'
+import locationIcon from '../../assets/img/personicon.svg'
 
 
 function FindUser() {
@@ -22,32 +23,13 @@ function FindUser() {
           console.log(coords)
           const point = new Point(coords)
           const pointFeature = new Feature(point)
-          const vectorStyle = [
-            new Style({
-              fill: new Fill({
-                color: 'rgba(255, 255, 255, 0.2)'
-              }),
-              image: new CircleStyle({
-                radius: 5,
-                fill: new Fill({
-                  color: 'rgba(169,0,201,1)'
-                })
-              })
-            }),
-
-            new Style({
-              image: new CircleStyle({
-                radius: 70,
-                fill: new Fill({
-                  color: 'rgba(255, 255, 255, 0.205)'
-                }),
-                stroke: new Stroke({
-                  color: 'rgba(169,0,201,1)',
-                  width: 2
-                })
-              })
+          const vectorStyle = new Style({
+            image: new Icon({
+              anchor: [0.5, 1],
+              src: locationIcon,
+              scale: 0.1 // Ajuste a escala conforme necessário
             })
-          ]
+          })
 
 
           const markerLayer = new VectorLayer({
