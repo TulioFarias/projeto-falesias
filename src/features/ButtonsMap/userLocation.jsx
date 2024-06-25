@@ -55,9 +55,9 @@ function FindUser() {
    
       const markerLayer = new VectorLayer({
         source: new VectorSource({
-          features: [pointFeature] // `pointFeature` é o seu objeto `Feature` com o ponto
+          features: [pointFeature] 
         }),
-        style: vectorStyle // Aplicando o estilo do ícone aqui
+        style: vectorStyle 
       });
 
       vector.getSource().clear();
