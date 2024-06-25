@@ -35,7 +35,6 @@ function FindUser() {
           const markerLayer = new VectorLayer({
             source: vector.getSource(),
             style: vectorStyle,
-            zIndex: 10
           })
 
          

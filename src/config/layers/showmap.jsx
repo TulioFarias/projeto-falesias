@@ -1,8 +1,11 @@
 import TileLayer from "ol/layer/Tile.js";
 import Map from "ol/Map.js";
-import OSM from "ol/source/OSM.js";
 import View from "ol/View.js";
 import { XYZ } from "ol/source";
+import wmsLayer from "./serverLayer";
+
+
+console.log(wmsLayer)
 
 
 const projection = 'EPSG:4326'
@@ -17,13 +20,17 @@ const mapTilerSource = new XYZ({
 });
 
 const mapTilerLayer = new TileLayer({
-  source: mapTilerSource
+  source: mapTilerSource,
+  zIndex: 0
 });
+
+wmsLayer.setZIndex(1);
 
 const mapInstance = new Map({
   target: 'map',
   layers: [
-      mapTilerLayer
+      mapTilerLayer,
+      wmsLayer
   ],
   view: new View({
       projection: projection,
