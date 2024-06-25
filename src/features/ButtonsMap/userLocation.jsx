@@ -13,45 +13,52 @@ import locationIcon from '../../assets/img/personicon.svg'
 
 function FindUser() {
   const buscarLocalizacao = async () => {
-    try {
-      if (navigator.geolocation) {
-        
-        await navigator.geolocation.getCurrentPosition(position => {
-          const { latitude, longitude } = position.coords
-
-          const coords = [longitude, latitude]
-          console.log(coords)
-          const point = new Point(coords)
-          const pointFeature = new Feature(point)
-          const vectorStyle = new Style({
-            image: new Icon({
-              anchor: [0.5, 1],
-              src: locationIcon,
-              scale: 0.1 // Ajuste a escala conforme necessário
+    useEffect(() => {
+      let watchId = null;
+  
+      const buscarLocalizacao = async () => {
+        try {
+          if (navigator.geolocation) {
+            watchId = navigator.geolocation.watchPosition(position => {
+              const { latitude, longitude } = position.coords
+  
+              const coords = [longitude, latitude]
+              const point = new Point(coords)
+              const pointFeature = new Feature(point)
+              const vectorStyle = new Icon({
+                anchor: [0.5, 1],
+                src: locationIcon,
+                scale: 0.1 
+              })
+  
+              const markerLayer = new VectorLayer({
+                source: vector.getSource(),
+                style: vectorStyle,
+              })
+  
+              vector.getSource().clear()
+              vector.getSource().addFeature(pointFeature)
+  
+              mapInstance.addLayer(markerLayer)
+              mapInstance.getView().setCenter(coords)
+              mapInstance.getView().setZoom(20)
             })
-          })
-
-
-          const markerLayer = new VectorLayer({
-            source: vector.getSource(),
-            style: vectorStyle,
-          })
-
-         
-          vector.getSource().clear()
-          vector.getSource().addFeature(pointFeature)
-
-          mapInstance.addLayer(markerLayer)
-          mapInstance.getView().setCenter(coords)
-          mapInstance.getView().setZoom(20)
-
-        })
-      } else {
-        alert('Ocorreu um erro')
+          } else {
+            alert('O navegador não suporta geolocalização.')
+          }
+        } catch (error) {
+          console.error('Erro ao obter localização:', error)
+        }
       }
-    } catch (error) {
-      console.error('Erro ao obter localização:', error)
-    }
+
+      buscarLocalizacao();
+
+      return () => {
+        if (watchId !== null) {
+          navigator.geolocation.clearWatch(watchId);
+        }
+      };
+    }, []);
   }
 
   return (

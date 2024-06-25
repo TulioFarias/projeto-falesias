@@ -1,5 +1,7 @@
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
+import { XYZ } from "ol/source";
+
 
 const wmsLayer = new TileLayer({
   visible: true,
@@ -19,6 +21,21 @@ const wmsLayer = new TileLayer({
 
 });
 
+const mapTilerSource = new XYZ({
+    url: 'https://api.maptiler.com/maps/satellite/256/{z}/{x}/{y}.jpg?key=dmrf4Btg9HX3i6jmHcpi',
+    tileSize: 256,
+    maxZoom: 20, 
+    crossOrigin: 'anonymous'
+  });
+  
+  const mapTilerLayer = new TileLayer({
+    source: mapTilerSource
+  });
 
 
-export default wmsLayer;
+  wmsLayer.setZIndex(1);
+  
+
+
+
+export { wmsLayer , mapTilerLayer};
