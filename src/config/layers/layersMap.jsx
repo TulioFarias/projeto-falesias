@@ -25,15 +25,6 @@ const mapTilerSource = new XYZ({
   crossOrigin: 'anonymous'
 });
 
-wmsLayer.getSource().on('tileloadstart', () => {
-    console.log('Carregando tile WMS...');
-  });
-  wmsLayer.getSource().on('tileloadend', () => {
-    console.log('Tile WMS carregado com sucesso.');
-  });
-  wmsLayer.getSource().on('tileloaderror', (error) => {
-    console.error('Erro ao carregar tile WMS:', error);
-  });
 
 const mapTilerLayer = new TileLayer({
   source: mapTilerSource,
