@@ -5,6 +5,7 @@ import React, { useRef } from 'react'
 import { center, zoom, mapInstance } from '../../config/layers/showmap'
 import { vector } from '../../config/layers/vector'
 
+
 function ResetZoom() {
   const element = useRef()
 
@@ -16,7 +17,7 @@ function ResetZoom() {
     mapInstance.getView().setCenter(center)
   }
 
-
+  
 
   return (
     <>

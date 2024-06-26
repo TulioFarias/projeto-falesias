@@ -74,7 +74,7 @@ function FindUser() {
   const handleButtonClick = () => {
     if (watchId === null) {
       buscarLocalizacao();
-      setWatchId(setInterval(buscarLocalizacao, 5000));
+      setWatchId(setInterval(buscarLocalizacao, 2000));
     } else {
       clearInterval(watchId);
       setWatchId(null);
