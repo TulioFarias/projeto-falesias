@@ -2,6 +2,7 @@ import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 import { XYZ } from "ol/source";
 import OSM from 'ol/source/OSM';
+import apiGoogle from '../../services/apiGeolocationGoogle';
 const wmsLayer = new TileLayer({
   visible: true,
   source: new TileWMS({
@@ -18,23 +19,26 @@ const wmsLayer = new TileLayer({
   zIndex: 99
 });
 
-const mapTilerSource = new XYZ({
-  url: 'https://api.maptiler.com/maps/satellite/256/{z}/{x}/{y}.jpg?key=dmrf4Btg9HX3i6jmHcpi',
-  tileSize: 256,
-  maxZoom: 20,
-  crossOrigin: 'anonymous'
+const googleRoadLayer = new TileLayer({
+  source: new XYZ({
+    url: `https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}&key=${apiGoogle}`,
+    tileSize: 256,
+    maxZoom: 20,
+    crossOrigin: 'anonymous'
+  }),
+});
+
+const googleSatelliteLayer = new TileLayer({
+  source: new XYZ({
+    url: `https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}&key=${apiGoogle.API_KEY}`,
+    tileSize: 256,
+    maxZoom: 20,
+    crossOrigin: 'anonymous'
+  }),
 });
 
 
-const mapTilerLayer = new TileLayer({
-  source: mapTilerSource,
-});
 
-
-const osmLayer = new TileLayer({
-    source: new OSM(),
-  });
-
-const layers = [ wmsLayer, mapTilerLayer];
+  const layers = [wmsLayer, googleRoadLayer , googleSatelliteLayer];
 
 export { layers };

@@ -4,7 +4,7 @@ import { layers } from './layersMap';
 
 const projection = 'EPSG:4326';
 const center = [-38.6514543, -3.6832602];
-const zoom = 20;
+const zoom = 18;
 
 
 const mapInstance = new Map({
@@ -14,7 +14,6 @@ const mapInstance = new Map({
     projection: projection,
     center: center,
     zoom: zoom,
-    maxZoom: 18
   }),
   controls: []
 });
