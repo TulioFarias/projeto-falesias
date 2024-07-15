@@ -8,7 +8,6 @@ import { layers } from '../../config/layers/layersMap';
 
 function ChangeMap() {
 
-    console.log(layers)
 
     const [isRoadMap, setIsRoadMap] = useState(true);
 
