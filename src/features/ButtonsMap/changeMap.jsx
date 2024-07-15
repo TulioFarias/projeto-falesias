@@ -15,13 +15,13 @@ function ChangeMap() {
     const handleClick = () => {
         mapInstance.getLayers().clear();
 
-        // Adicionar o WMS Layer de volta ao mapa
-        mapInstance.addLayer(layers[0]); // Assume que o WMS Layer está no índice 0
+        mapInstance.addLayer(layers[0]);
+        mapInstance.addLayer(layers[1]);  
 
         if (isRoadMap) {
-            mapInstance.addLayer(layers[2]); // Adiciona a camada de satélite do Google (supondo que está no índice 2)
+            mapInstance.addLayer(layers[2]);
         } else {
-            mapInstance.addLayer(layers[1]); // Adiciona a camada de estradas do Google (supondo que está no índice 1)
+            mapInstance.addLayer(layers[3]); 
         }
 
         setIsRoadMap(!isRoadMap);
