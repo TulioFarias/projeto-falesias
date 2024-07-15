@@ -46,3 +46,20 @@
     height: 20px;
     background-color: rgb(240, 64, 52);
 }
+
+@media only screen and (max-width: 490px){
+
+    .ContainerLegendMapWrapper{
+        position: relative;
+        right: 10px;
+        top: 320px;
+        width: 250px;
+        padding: 10px;
+        background-color: #1477b1cb;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+}
